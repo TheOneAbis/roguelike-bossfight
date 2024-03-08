@@ -36,23 +36,37 @@ int UDataUtils::GetOutroSkips()
 }
 void UDataUtils::SetDeathCount(int count)
 {
+	if (!fileRead)
+		ReadFromFile();
 	deaths = count;
 }
 void UDataUtils::SetRecordedGameTime(float time)
 {
+	if (!fileRead)
+		ReadFromFile();
 	gameTime = time;
 }
 void UDataUtils::SetIntroSkips(int count)
 {
+	if (!fileRead)
+		ReadFromFile();
 	introSkips = count;
 }
 void UDataUtils::SetOutroSkips(int count)
 {
+	if (!fileRead)
+		ReadFromFile();
 	outroSkips = count;
 }
 
 void UDataUtils::SaveToFile()
 {
+	// If we're here before reading in data, writing to it will end up
+	// zeroing out all saved data when the user may not want that. 
+	// Thus we will not write anything.
+	if (!fileRead)
+		return;
+
 	std::ofstream file;
 	file.open("data.txt");
 	if (file.is_open())
@@ -98,6 +112,6 @@ void UDataUtils::ReadFromFile()
 	}
 	else if (GEngine)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, "Error attempting to read from data.txt!");
+		GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, "Error attempting to read from data.txt! The file likely doesn't exist.");
 	}
 }
