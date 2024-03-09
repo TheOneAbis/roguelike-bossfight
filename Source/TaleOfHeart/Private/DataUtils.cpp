@@ -2,6 +2,8 @@
 
 
 #include "DataUtils.h"
+
+#include "Misc/Paths.h"
 #include <fstream>
 
 static float gameTime = 0;
@@ -68,7 +70,9 @@ void UDataUtils::SaveToFile()
 		return;
 
 	std::ofstream file;
-	file.open("data.txt");
+	FString gamePath = FPaths::GameSourceDir();
+	gamePath.Append("data.txt");
+	file.open(TCHAR_TO_ANSI(*gamePath));
 	if (file.is_open())
 	{
 		file << "Total_Game_Time=" << gameTime << std::endl;
@@ -87,7 +91,9 @@ void UDataUtils::ReadFromFile()
 {
 	fileRead = true;
 	std::ifstream file;
-	file.open("data.txt");
+	FString gamePath = FPaths::GameSourceDir();
+	gamePath.Append("data.txt");
+	file.open(TCHAR_TO_ANSI(*gamePath));
 	if (file.is_open())
 	{
 		int ptrOffset = 0;
