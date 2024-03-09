@@ -70,7 +70,7 @@ void UDataUtils::SaveToFile()
 		return;
 
 	std::ofstream file;
-	FString gamePath = FPaths::GameSourceDir();
+	FString gamePath = FPaths::ProjectUserDir();
 	gamePath.Append("data.txt");
 	file.open(TCHAR_TO_ANSI(*gamePath));
 	if (file.is_open())
@@ -91,7 +91,7 @@ void UDataUtils::ReadFromFile()
 {
 	fileRead = true;
 	std::ifstream file;
-	FString gamePath = FPaths::GameSourceDir();
+	FString gamePath = FPaths::ProjectUserDir();
 	gamePath.Append("data.txt");
 	file.open(TCHAR_TO_ANSI(*gamePath));
 	if (file.is_open())
